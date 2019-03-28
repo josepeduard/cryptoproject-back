@@ -61,9 +61,15 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
         password: hashPass,
       });
 
-      return newUser.save().then(() => {
-        req.session.currentUser = newUser;
-        res.json(newUser);
+      newUser.save().then((user) => {
+        const newWallet = Wallet({
+          owner: user._id,
+          
+        })
+        return newWallet.save().then(()=>{
+          req.session.currentUser = newUser;
+          res.json(newUser);
+        })
       });
     })
     .catch(next);
