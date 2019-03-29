@@ -13,6 +13,7 @@ exports.isNotLoggedIn = () => (req, res, next) => {
   if (!req.session.currentUser) {
     next();
   } else {
+    console.log(req.session.currentUser)
     const err = new Error('Forbidden');
     err.status = 403;
     err.statusMessage = 'Forbidden';

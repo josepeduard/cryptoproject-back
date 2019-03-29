@@ -3,6 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const User = require('../models/user');
+const WalletCryptoWallet = require('../models/wallet-crypto')
+const WalletFiatWallet = require('../models/wallet-fiat')
+
 
 const { isLoggedIn, isNotLoggedIn, validationLoggin } = require('../helpers/middlewares');
 
@@ -53,6 +56,7 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
         next(err);
       }
 
+
       const salt = bcrypt.genSaltSync(10);
       const hashPass = bcrypt.hashSync(password, salt);
 
@@ -62,14 +66,23 @@ router.post('/signup', isNotLoggedIn(), validationLoggin(), (req, res, next) => 
       });
 
       newUser.save().then((user) => {
-        const newWallet = Wallet({
+        req.session.currentUser = user
+        const newWalletCryptoWallet = WalletCryptoWallet({
           owner: user._id,
           
         })
-        return newWallet.save().then(()=>{
-          req.session.currentUser = newUser;
-          res.json(newUser);
+
+        const newWalletFiatWallet = WalletFiatWallet({
+          owner: user._id,
+          
         })
+
+        newWalletCryptoWallet.save().then(()=>{
+          return newWalletFiatWallet.save()
+        }).then(()=>{
+          res.json(user);
+        })
+
       });
     })
     .catch(next);

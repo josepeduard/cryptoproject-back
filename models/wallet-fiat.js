@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { ObjectId } = Schema.Types
 
-const walletSchema = new Schema({
-  owner: ObjectId,
+const walletFiatSchema = new Schema({
+  owner: {type: ObjectId,
+    ref:'User'},
   quantity: Number,
   currency: String
 });
 
-const Wallet = mongoose.model('Wallet', walletSchema);
+const WalletFiatWallet = mongoose.model('WalletFiatWallet', walletFiatSchema);
 
-module.exports = Wallet;
+module.exports = WalletFiatWallet;
 
 
