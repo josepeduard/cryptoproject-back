@@ -5,8 +5,14 @@ const { ObjectId } = Schema.Types
 const walletCryptoSchema = new Schema({
   owner: {type: ObjectId,
     ref:'User'},
-  quantity: Number,
-  currency: String
+    quantity: {
+      type: Number, 
+      default: 0,
+    },
+  currency: {
+    type: String, 
+    // default:,
+  }
 });
 
 const WalletCryptoWallet = mongoose.model('WalletCryptoWallet', walletCryptoSchema);

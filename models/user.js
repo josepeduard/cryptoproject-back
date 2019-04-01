@@ -2,14 +2,38 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: String,
-  password: String,
-  picture: String
-}, {
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
+  username: {
+    type: String,
+    required: true    
+  }, 
+  password: {
+    type: String,
+    required: true    
   },
+  Image: {
+    type: String,   
+    required: false
+  },
+  Euro:{
+    type: Number,
+    default: 0
+  }, 
+  Dolar:{
+    type: Number,
+    default: 0
+  }, 
+  Yen:{
+    type: Number,
+    default: 0
+  }, 
+  Bitcoin:{
+    type: Number,
+    default: 0
+  },
+  Ethereum:{
+    type: Number,
+    default: 0
+  }
 });
 
 const User = mongoose.model('User', userSchema);
