@@ -15,15 +15,30 @@ router.get('/', isLoggedIn(),(req, res, next) => {
     res.status(200)
     })
   });
-/*
-router.post('/deposit', isLoggedIn(),(req, res, next) => {
+  router.put('/withdraw',isLoggedIn(),(req, res, next) => {
     const {_id} = req.session.currentUser
-    const deposit = req.params
-    User.findByIdAndUpdate({_id}, {euro: {deposit}})
+    const {withdraw} = req.body
+    console.log("hola",req.body.withdraw)
+    User.findByIdAndUpdate({_id}, {$inc: {Euro: -withdraw}})
     .then((data)=>{
+        console.log(req.body.withdraw)
         res.json(data);
         res.status(200)
     })    
-});*/
+});
+  
+router.put('/deposit',isLoggedIn(),(req, res, next) => {
+    const {_id} = req.session.currentUser
+    const {deposit} = req.body
+    console.log("hola",req.body.deposit)
+    User.findByIdAndUpdate({_id}, {$inc: {Euro: deposit}})
+    .then((data)=>{
+        console.log(req.body.deposit)
+        res.json(data);
+        res.status(200)
+    })    
+});
+
+
 
 module.exports = router;

@@ -18,14 +18,6 @@ const userSchema = new Schema({
     type: Number,
     default: 0
   }, 
-  Dolar:{
-    type: Number,
-    default: 0
-  }, 
-  Yen:{
-    type: Number,
-    default: 0
-  }, 
   Bitcoin:{
     type: Number,
     default: 0
@@ -33,7 +25,8 @@ const userSchema = new Schema({
   Ethereum:{
     type: Number,
     default: 0
-  }
+  },
+  
 });
 
 const User = mongoose.model('User', userSchema);
