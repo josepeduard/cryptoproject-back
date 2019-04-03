@@ -18,7 +18,6 @@ router.get('/', isLoggedIn(),(req, res, next) => {
   router.put('/withdraw',isLoggedIn(),(req, res, next) => {
     const {_id} = req.session.currentUser
     const {withdraw} = req.body
-    console.log("hola",req.body.withdraw)
     User.findByIdAndUpdate({_id}, {$inc: {Euro: -withdraw}})
     .then((data)=>{
         console.log(req.body.withdraw)
