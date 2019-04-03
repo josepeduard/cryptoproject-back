@@ -26,6 +26,10 @@ const userSchema = new Schema({
     type: Number,
     default: 0
   },
+  Litecoin:{
+    type: Number,
+    default: 0
+  },
   
 });
 
